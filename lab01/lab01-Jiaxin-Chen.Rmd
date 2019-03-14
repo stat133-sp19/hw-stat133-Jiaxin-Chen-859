@@ -1,0 +1,315 @@
+---
+title: 'Lab1: Getting started with R and Studio'
+author: "Jiaxin Chen"
+date: "1/29/2019"
+output: html_document
+---
+
+#### 
+Lab 01: vectors HI 
+
+### Difference between R-GUI and RStudio
+  * R-GUI is a simply graphical user interface
+  
+  * RStudio is an Integrated Development Environment (IDE)
+  
+    * It is much more than a simple GUI
+    
+    * It provides a nice working environment and development framework
+    
+***
+
+###R as a scientific calculator
+
+####First contact with the R console
+
+If you have never used software in which you have to type commands and code, our best suggestion is that you begin typing basic things in the __console__, using R as a scientific calculator.
+
+For instance, consider the monthly bills of Leia (a stats undergrad student):
+
+* cell phone $80
+* transportation $20
+* groceries $527
+* gym $10
+* rent $1500
+* other $83
+
+####Your Turn
+
+Make more assignments to create variables transportation, groceries, gym, rent, and other with their corresponding amounts.
+```{r}
+cell_phone <- 80
+transportation <- 20
+groceries <- 527
+gym <- 10
+rent <- 1500
+other <- 83
+
+```
+
+
+Now that you have all the variables, create a total object with the sum of the expenses.
+```{r}
+total_expenses_month <- cell_phone + transportation + groceries + gym + rent + other
+total_expenses_month
+```
+
+
+Assuming that Leia has the same expenses every month, how much would she spend during a school “semester”? (assume the semester involves five months).
+```{r}
+total_expenses_semester <- total_expenses_month * 5
+total_expenses_semester
+```
+
+
+Maintaining the same assumption about the monthly expenses, how much would Leia spend during a school “year”? (assume the academic year is 10 months).
+```{r}
+total_expenses_year <- total_expenses_month * 10
+total_expenses_year
+```
+
+
+#### Object Names
+
+There are certain rules you have to follow when creating objects and variables. Object names cannot start with a digit and cannot contain certain other characters such as a comma or a space. You will be wise to adopt a convention for demarcating words in names.
+
+#### Functions
+
+R has many functions. To use a function type its name followed by parenthesis. Inside the parenthesis you pass an input. Most functions will produce some type of output:
+
+#### Comments in R
+
+All programming languages use a set of characters to indicate that a specifc part or lines of code are __comments__, that is, things that are not to be executed. R uses the hash or pound symbol # to specify comments. Any code to the right of # will not be executed by R.
+
+####Case Sensitive
+
+R is case sensitive. This means that phone is not the same as `Phone` or `PHONE`
+
+####Your turn
+
+Take your objects (i.e. variables) phone, transportation, groceries, gym, rent, and other and pass them inside the combine function c() to create a vector expenses.
+
+Now, use the graphing function barplot() to produce a barchart of expenses:
+```{r}
+expenses <- c(cell_phone, transportation, groceries, gym, rent, other)
+barplot(expenses)
+```
+
+Find out how to use sort() to sort the elements in expenses, in order to produce a bar-chart with bars in decreasing order. Also, see if you can figure out how to display the names of the variables below each of the bars. Also optional, see if you can find out how to display the values of each variable at the top of each bar.
+```{r}
+expenses <- sort(expenses, decreasing = TRUE)
+
+ylim <- c(0, 1.1 * max(expenses))
+
+xx <- barplot(expenses, ylim = ylim, names.arg = c("rent", "groceries", "other", "cell_phone", "transp", "gym"), col = "light blue" )
+text(x = xx, y = expenses, labels = expenses, pos = 3, cex = 1, col = "red")
+
+```
+
+***
+
+#### Introduction to R Markdown files
+
+Most of the times you won’t be working directly on the console. Instead, you will be typing your commands in some source file. The most basic type of source files are known as R script files. But there are more flavors of source files. A very convenient type of source file that allow you to mix R code with narrative is an R markdown file commonly referred to as `Rmd` file.
+
+##### Get to know the Rmd files
+
+In the menu bar of RStudio, click on File, then New File, and choose R Markdown. Select the default option (Document), and click Ok.
+
+Rmd files are a special type of file, referred to as a dynamic document, that allows to combine narrative (text) with R code. Because you will be turning in most homework assignments as Rmd files, it is important that you quickly become familiar with this resource.
+
+Locate the button Knit HTML (the one with a knitting icon) and click on it so you can see how Rmd files are renderer and displayed as HTML documents.
+
+R markdown files use a special syntax called markdown. To be more precise, Rmd files let you type text using either: 1) R syntax for code that needs to be executed; 2) markdown syntax to write your narrative, and 3) latex syntax for math equations and symbols.
+
+You will have time to learn the basics of this syntax in the first warmup assignment. And we actually expect that feel comfortable with markdown at the end of the semester.
+
+*** 
+
+#### Getting Help
+
+Because we work with functions all the time, it’s important to know certain details about how to use them, what input(s) is required, and what is the returned output.
+
+There are several ways to get help.
+
+If you know the name of a function you are interested in knowing more, you can use the function help() and pass it the name of the function you are looking for:
+
+```{r}
+# documentation about the 'abs' function
+help(abs)
+
+# documentation about the 'mean' function
+help(mean)
+```
+
+Alternatively, you can use a shortcut using the question mark ? followed by the name of the function:
+
+```{r}
+# documentation about the 'abs' function
+?abs
+
+# documentation about the 'mean' function
+?mean
+```
+
+* How to read the manual documentation
+  * Title
+  * Description
+  * Usage of function
+  * Arguments
+  * Details
+  * See Also
+  * Examples!!!
+
+`help()` only works if you know the name of the function your are looking for. Sometimes, however, you don’t know the name but you may know some keywords. To look for related functions associated to a keyword, use double `help.search()` or simply `??`
+
+```{r}
+# search for 'absolute'
+help.search("absolute")
+
+# alternatively you can also search like this:
+??absolute
+```
+
+Notice the use of quotes surrounding the input name inside `help.search()`
+
+***
+
+#### Your Turn: Pythagoras formula
+
+The pythagoras formula is used to compute the length of the hypotenuse, (c), of a right triangle with legs of length (a) and (b).
+
+c = $\sqrt{a^2 + b^2}$
+
+Calculate the hypotenuse of a right triangle with legs of length 3 and 4. Use the sqrt() function, and create variables a = 3 and b = 4. If you don’t know what’s the symbol to calculate exponents, search for the help documentation of the arithmetic operators: ?Arithmetic.
+
+##### Your Turn: Binomial Formula
+
+The formula for the binomial probability is:
+
+Pr(k;n,p) = Pr(X = k) = $\binom{n}{k}P^k(1-p)^n-k$
+
+where:
+
+ * (n) is the number of (fixed) trials
+ * (p) is the probability of success on each trial
+ * (1 - p) is the probability of failure on each trial
+ * (k) is a variable that represents the number of successes out of (n) trials
+ * the first term in parenthesis is not a fraction, it is the number of combinations in     which (k) success can occur in (n) trials
+
+R provides the `choose()` function to compute the number of combinations:
+
+$\binom{n}{k}$ = $\frac{n(n-1)\dots(n-k+1)}{k(k-1)\dots1}$
+
+For instance, the number of combinations in which (k) = 2 success can occur in (n) = 5 trials is:
+```{r}
+choose(n = 5, k = 2)
+```
+
+Combinations are typically expressed in terms of factorials as:
+
+$\frac{n!}{k!(n-k)!}$
+
+Conveniently, R also provides the function factorial() to calculate the factorial of an integer:
+```{r}
+
+factorial(4)
+
+```
+
+Let’s consider a simple example. A fair coin is tossed 5 times. What is the probability of getting exactly 2 heads?
+
+Create the objects n, k, and p for the number of trials, the number of success, and the probability of success, respectively.
+```{r}
+n <- 5      # the number of trials
+k <- 2      # the number of success
+p <- 1/2    # probability of success
+```
+
+Use factorial() to compute the number of combinations “n choose k”
+```{r}
+combinations <- factorial(n) / (factorial(k) * factorial(n-k))
+combinations
+```
+
+Apply the binomial formula, using factorial(), to calculate the probability of getting exactly 2 heads out of 5 tosses.
+
+```{r}
+Pr <- combinations * (p^k) * (1 - p)^(n-k)
+Pr
+```
+
+Recalculate the same probability but now using `choose()` (instead of `factorial()`)
+```{r}
+Pr <- choose(n, k) * (p^k) * (1 - p)^(n-k)
+Pr
+```
+
+Consider rolling a fair die 10 times. What is the probability of getting exactly 3 sixes?
+```{r}
+n <- 10
+k <- 3
+p <- 1/6
+Pr <- choose(n, k) * (p^k) * (1 - p)^(n-k)
+Pr
+```
+
+Now look for help documentation (e.g. help.search() or ??) using the keyword binomial: binomial.
+You should get a list of topics related with the searched term binomial.
+Choose the one related with the Binomial Distribution, which is part of the R package stats (i.e. stats::Binomial). 
+
+```{r}
+help.search("binomial")
+```
+
+Read the documentation and figure out how to use the dbinom() function to obtain the above probabilities: 2 heads in 5 coin tosses, and 3 sixes in 3 rolls of a die.
+
+```{r}
+dbinom(x = 2, size = 5, prob = 1/2) # probability of 2 heads in 5 coin tosses
+dbinom(x = 3, size = 10, prob = 1/6) # probability of 3 sixes in 3 rolls of a die
+```
+
+How would you modify the previous binomial function to calculate the same probability (2 heads in 5 tosses) of a biased coin with a chance of heads of 35%?
+
+```{r}
+dbinom(x = 2, size = 5, prob = 0.35)
+```
+
+Finally, obtain the probability of getting more than 3 heads in 5 tosses with a biased coin of 35% chance of heads.
+```{r}
+Pr_4heads <- dbinom(x = 4, size = 5, prob = 0.35)
+Pr_5heads <- dbinom(x = 5, size = 5, prob = 0.35)
+Pr_total <- Pr_4heads + Pr_5heads
+Pr_total
+```
+
+***
+
+####Installing Packages
+
+R comes with a large set of functions and packages. A package is a collection of functions that have been designed for a specific purpose. One of the great advantages of R is that many analysts, scientists, programmers, and users can create their own pacakages and make them available for everybody to use them. R packages can be shared in different ways. The most common way to share a package is to submit it to what is known as CRAN, the Comprehensive R Archive Network.
+
+You can install a package using the `install.packages()` function. To do this, we recommend that you run this command directly on the console. Do NOT include this command in a code chunk of an Rmd file: you will very likely get an error message when knitting the Rmd file.
+
+To use `install.packages()` just give it the name of a package, surrounded by qoutes, and R will look for it in CRAN, and if it finds it, R will download it to your computer.
+
+You can also install a bunch of packages at once:
+
+
+Once you installed a package, you can start using its functions by loading the package with the function library(). By the way, when working on an Rmd file that uses functions from a given package, you MUST include a code chunk with the `library()` command.
+
+
+#### RStudio working environment
+
+Understand the pane layout (i.e. windows) of RStudio. What is the purpose of the following panes?
+
+  * Source
+  * Console
+  * Environment, History, etc
+  * Files, Plots, Packages, Help, Viewer
+
+Play with the customizing options of RStudio (appearance of source pane, etc)
+
+  * font
+  * size
+  * background
